@@ -1,0 +1,129 @@
+/* Zhelun Cao
+   assign02b.c
+   04/04/2013
+   COMP-1200 - Spring 2013
+   I worked on my assignment alone using course material only
+   This program will read the file "hubbleData.txt" and show the velocity and 
+   the distance of the hubbleData by arrays. As well, it will calculate the distance by the 
+   given velocity from the data by the own function 
+   
+   1. Problem Constants: (with units, as needed)
+      filename
+   2. Problem Inputs:  (with units, as needed)
+      velocity (km/sec)
+	  distance (106 parsecs)
+   3. Problem Outputs: (with units, as needed)
+      slope
+      y-intercept 
+   4. Other variables: nCounter, sumXY, sumX, sumY, sumXX(with units, as needed)
+   5. Equations
+   6. Algorithm:
+         Open the data file.
+         -If open error print message and end program
+         -Else
+          -Print the title and column headers for the velocity and distance table
+          -Calculate the slope and y-intercept 
+          -Compute SLOPE - m
+          -Compute INTERCEPT - b
+          -Use the linear equation
+*/
+#include <stdio.h>
+#define FILENAME "AU_WBB_2013_results.txt"
+#define MAXNUMGAMES 40 
+
+int getResults ( int date[][3],char loc[][2],int score[][2],int attend[],int highs[][4] );
+void printResults( int date[][3],char loc[][2],int score[][2],int attend[],int highs[][4], int numGames );
+void seasonRecord( char loc[][2], int score[][2], int numGames );
+void attendance( int date[][3], char loc[][2], int attend[], int numGames);
+
+int main()
+{    
+          int attend[MAXNUMGAMES];
+		  int date[MAXNUMGAMES][3],
+              score[MAXNUMGAMES][2],
+              highs[MAXNUMGAMES][4];
+          int numGames;
+		  char  loc[MAXNUMGAMES][2];  
+		        
+		        
+    numGames = getResults (date,loc,score,attend,highs );
+   
+    // if ( numGames < 1 ) 
+	    // printf( "No data available\n" ); 
+    // else 
+	 // printResults(date,loc,score,attend,highs, numGames );        
+
+    // return 0;
+	
+}
+
+int getResults ( int date[][3],char loc[][2],int score[][2],int attend[],int highs[][4] )
+{
+	int n=0,
+	    h;
+    FILE *infile;
+	infile = fopen(FILENAME, "r");
+	   
+	   //If open error print message and end program
+	if (infile == NULL)
+	    printf("Error opening input file.");
+	      
+	   //Else
+	else 
+	{	
+		printf("Opening File.......\n");
+		
+		while (fscanf(infile, "%d-%d-%d %s%s %d-%d  %d (%d)%d (%d) %d",
+						&date[n][0],&date[n][1],&date[n][2],&loc[n][0],&loc[n][1],&score[n][0],
+						&score[n][1],&attend[n],&highs[n][0],&highs[n][1],&highs[n][2],&highs[n][3]) > 0)
+	        {
+			printf("%02d-%02d-%d   %c %c   %d-%d    %5d   (%2d)%02d    (",date[n][0],date[n][1],date[n][2],loc[n][0],loc[n][1],
+					score[n][0],score[n][1],attend[n],highs[n][0],highs[n][1]);
+			printf("%d)%02d \n",highs[n][2],highs[n][3]);
+        		n++;
+			}
+		
+	      }
+		  printf("Closing File.......");
+	      return n;
+	
+}
+
+// void printResults( int date[][3],char loc[][2],int score[][2],int attend[],int highs[][4], int numGames )
+// {
+	// int n,h;
+	
+	// for (n=0; n<numGames; n++)
+	// {
+		// for ( h=0; h<3; h++ ) 
+		 // {
+		   // printf( "%5d", date[n][h] );
+		 // }
+        // for ( h=0; h<2; h++ ) 
+		 // {
+		   // printf( "%5s", score[n][h] );
+		 // }
+	    // for ( h=0; h<2; h++ ) 
+		 // {
+		   // printf( "%5d", date[n][h] );
+		 // }
+	    // for ( h=0; h<1; h++ ) 
+		 // {
+		   // printf( "%5d", date[n][h] );
+		 // }
+	    // for ( h=0; h<4; h++ ) 
+		 // {
+		   // printf( "%5d", date[n][h] );
+		 // }   
+		   
+	// }
+	
+	
+	
+	
+// }
+
+
+
+
+
